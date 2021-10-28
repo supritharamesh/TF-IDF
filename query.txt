@@ -1,0 +1,43 @@
+SELECT TOP 50000 * 
+FROM posts where posts.ViewCount > 20000 
+ORDER BY posts.ViewCount DESC, posts.id ASC;
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+SELECT TOP 50000 *
+FROM posts
+where posts.ViewCount > 20000
+and posts.id NOT IN
+(
+SELECT TOP 50000 posts.id 
+FROM posts 
+ORDER BY posts.ViewCount DESC, posts.id ASC
+) 
+ORDER BY posts.ViewCount DESC, posts.id ASC;
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+SELECT TOP 50000 *
+FROM posts
+where posts.ViewCount > 20000
+and posts.id NOT IN
+(
+  SELECT TOP 100000 posts.id
+  FROM posts
+  ORDER BY posts.ViewCount DESC
+)
+ORDER BY posts.ViewCount DESC;
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+SELECT TOP 50000 *
+FROM posts
+where posts.ViewCount > 20000
+and posts.id NOT IN
+(
+  SELECT TOP 150000 posts.id
+  FROM posts
+  ORDER BY posts.ViewCount DESC
+)
+ORDER BY posts.ViewCount DESC;
+

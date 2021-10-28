@@ -1,0 +1,28 @@
+Hive
+
+create table data (Id int,PostTypeId int,AcceptedAnswerId int,ParentId int,CreationDate string,DeletionDate int,Score int,ViewCount int,Body string,OwnerUserId int,OwnerDisplayName string, LastEditorUserId int,LastEditorDisplayName string,LastEditDate string,LastActivityDate string,Title string,Tags string,AnswerCount int,CommentCount int,FavoriteCount int,ClosedDate string, CommunityOwnedDate string)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
+
+Creating a table with the same scheme
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+load data inpath '/op' into table data;
+
+loading the data from the output of 
+
+-------------------------------------------------------------------------------------
+Query
+
+1.
+SELECT Id,Score,ViewCount,Title,Tags 
+FROM data SORT BY Score DESC LIMIT 10;
+
+2.
+SELECT OwnerUserId, SUM(Score) AS Sum_Of_Score, OwnerDisplayName 
+FROM data WHERE OwnerUserId IS NOT NULL 
+GROUP BY OwnerUserId,OwnerDisplayName 
+ORDER BY Sum_Of_Score DESC LIMIT 10;
+
+3.
+SELECT COUNT (DISTINCT OwnerUserId) FROM data 
+WHERE lower (Body) like '%cloud%' or lower (Title) like '%cloud%' or lower(Tags) like '%cloud%';
